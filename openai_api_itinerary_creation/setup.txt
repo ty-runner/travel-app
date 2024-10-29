@@ -1,0 +1,6 @@
+1. Generate OpenAI API key on OpenAI's website.
+2. Mount API key to your machine:
+    - Windows: setx OPENAI_API_KEY "your_api_key_here"
+    - *nix: export OPENAI_API_KEY="your_api_key_here"
+3. In your terminal, run "npm install openai" 
+4. Now you can run the mjs file in this folder and play around with different prompts!
