@@ -3,7 +3,7 @@ const openai = new OpenAI();
 
 const generateItinerary = async (destination, days, preferences) => {
     const completion = await openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-3.5-turbo",
         messages: [
             { role: "system", content: "You are a travel itinerary planner." },
             {
