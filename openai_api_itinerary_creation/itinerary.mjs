@@ -8,7 +8,7 @@ const generateItinerary = async (destination, days, preferences) => {
             { role: "system", content: "You are a travel itinerary planner." },
             {
                 role: "user",
-                content: `Create a ${days}-day travel itinerary for ${destination}. The user prefers ${preferences}. Include top sights, meal recommendations, and travel tips.`,
+                content: `Create a ${days}-day travel itinerary for ${destination}. The user prefers ${preferences}. Include top sights, meal recommendations, and travel tips. Also deliver an expected expense total for this itinerary.`,
             },
         ],
     });
