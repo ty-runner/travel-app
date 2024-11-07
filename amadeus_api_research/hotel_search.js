@@ -1,6 +1,5 @@
 require("dotenv").config();
 const Amadeus = require('amadeus');
-const { read } = require("fs");
 const readline = require('readline');
 const r1 = readline.createInterface({
     input: process.stdin,
