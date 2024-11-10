@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const amadeus = require("./config");
 
-const API = "api";
+const API = "http://localhost:1338";
 // City search suggestions
 router.get(`/${API}/search`, async (req, res) => {
   const { keyword } = req.query;

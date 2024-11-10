@@ -1,1 +1,71 @@
+# macOS files
+.DS_Store
+
+# Node modules
+node_modules/
+package-lock.json
+yarn.lock
+
+# React Native build files
+/android/.gradle/
+/android/app/build/
+/android/build/
+/android/.idea/
+/android/local.properties
+
+/ios/Pods/
+/ios/build/
+/ios/DerivedData/
+/ios/.DS_Store
+
+# Temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Metro bundler cache
+.cache/
+/temp/
+.expo/
+.expo-shared/
+
+# IDE files
+.vscode/
+/.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# React Native config
+metro.config.js
+
+# React Native index files
+index.android.js
+index.ios.js
+
+# Jest testing
+coverage/
+*.test.js
+jest/
+
+# Environment files
 .env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Expo specific
+web-build/
+
+# ESLint
+.eslintcache
+
+# React Native Web specific
+dist/
+
+# GitHub actions
+.github/
