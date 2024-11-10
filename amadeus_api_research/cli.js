@@ -4,15 +4,9 @@ const axios = require('axios');
 const API_URL = 'http://localhost:1338';
 
 // Placeholder for your API functions using the local Express server
-const searchCities = async (keyword) => {
-    const response = await axios.get(`${API_URL}/search`, { params: { keyword } });
-    const { data } = response.data;
-    console.log(data);
-    return data;
-};
 
 const getHotels = async (cityCode) => {
-    const response = await axios.get(`${API_URL}/hotels`, { params: { cityCode } });
+    const response = await axios.get(`${API_URL}/hotels/by-city`, { params: { cityCode } });
     return response.data;
 };
 
@@ -38,7 +32,6 @@ const bookHotel = async (offerId, guests, payments) => {
 // CLI flow for city search, hotel list, and offer confirmation
 const runCLI = async () => {
     try {
-        // Step 1: Search for cities
         const { keyword } = await inquirer.prompt([
             {
                 type: 'input',
@@ -46,34 +39,12 @@ const runCLI = async () => {
                 message: 'Enter a city name to search for:',
             },
         ]);
-
-        const cities = await searchCities(keyword);
-        if (!cities || cities.length === 0) {
-            console.log('No cities found!');
-            return;
-        }
-
-        // Step 2: List cities and let user select one
-        const { selectedCity } = await inquirer.prompt([
-            {
-                type: 'list',
-                name: 'selectedCity',
-                message: 'Select a city:',
-                choices: cities.map((city) => ({
-                    name: `${city.name} (${city.iataCode})`,
-                    value: city.iataCode,
-                })),
-            },
-        ]);
-
-        // Step 3: Get hotels in the selected city
-        const hotels = await getHotels(selectedCity);
+        const hotels = await getHotels(keyword);
+        console.log(hotels);
         if (!hotels || hotels.length === 0) {
             console.log('No hotels found in this city!');
             return;
         }
-
-        // Step 4: List hotels and let user select one
         const { selectedHotel } = await inquirer.prompt([
             {
                 type: 'list',

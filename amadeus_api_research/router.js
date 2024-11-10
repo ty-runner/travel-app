@@ -1,71 +1,78 @@
-// router.js
 const express = require("express");
 const router = express.Router();
 const amadeus = require("./config");
-// City search suggestions
 
-router.get(`/search`, async (req, res) => {
-  const { keyword } = req.query;
-  try {
-    const response = await amadeus.referenceData.locations.get({
-      keyword //i think some request is missing here
-    });
-    res.json(JSON.parse(response.body));
-  } catch (err) {
-    res.json(err);
-  }
-});
-// Querying hotels
-router.get(`/hotels`, async (req, res) => {
+// Querying hotels by city code
+router.get(`/hotels/by-city`, async (req, res) => {
     const { cityCode } = req.query;
-    const response = await amadeus.shopping.hotelOffers.get({
-      cityCode,
-    });
+
+    if (!cityCode) {
+        return res.status(400).json({ error: "cityCode is required" });
+    }
+
     try {
-      await res.json(JSON.parse(response.body));
+        // Calling Amadeus API for hotels by city code
+        const response = await amadeus.referenceData.locations.hotels.byCity.get({
+            cityCode,
+        });
+        console.log(response.body);
+        // Responding with the parsed data
+        res.json(JSON.parse(response.body));
     } catch (err) {
-      await res.json(err);
+        res.status(500).json({ error: err.message });
     }
 });
 // Querying hotel offers
-router.get(`/offers`, async (req, res) => {
-    const { hotelId } = req.query;
-    const response = await amadeus.shopping.hotelOffersByHotel.get({
-      hotelId,
-    });
+router.get(`/hotels`, async (req, res) => {
+    const { cityCode } = req.query;
     try {
-      await res.json(JSON.parse(response.body));
+        const response = await amadeus.shopping.hotelOffers.get({ cityCode });
+        res.json(JSON.parse(response.body));
     } catch (err) {
-      await res.json(err);
+        res.status(500).json({ error: err.message });
     }
 });
+
+// Querying hotel offers by hotel ID
+router.get(`/offers`, async (req, res) => {
+    const { hotelId } = req.query;
+    try {
+        const response = await amadeus.shopping.hotelOffersByHotel.get({ hotelId });
+        res.json(JSON.parse(response.body));
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Confirming the offer
 router.get(`/offer`, async (req, res) => {
     const { offerId } = req.query;
-    const response = await amadeus.shopping.hotelOffer(offerId).get();
     try {
-      await res.json(JSON.parse(response.body));
+        const response = await amadeus.shopping.hotelOffer(offerId).get();
+        res.json(JSON.parse(response.body));
     } catch (err) {
-      await res.json(err);
+        res.status(500).json({ error: err.message });
     }
 });
+
 // Booking
 router.post(`/booking`, async (req, res) => {
     const { offerId } = req.query;
     const { body } = req;
-    const response = await amadeus.booking.hotelBookings.post(
-      JSON.stringify({
-        data: {
-          offerId,
-          guests: body.guests,
-          payments: body.payments,
-        },
-      })
-    );
     try {
-      await res.json(JSON.parse(response.body));
+        const response = await amadeus.booking.hotelBookings.post(
+            JSON.stringify({
+                data: {
+                    offerId,
+                    guests: body.guests,
+                    payments: body.payments,
+                },
+            })
+        );
+        res.json(JSON.parse(response.body));
     } catch (err) {
-      await res.json(err);
+        res.status(500).json({ error: err.message });
     }
 });
+
 module.exports = router;
