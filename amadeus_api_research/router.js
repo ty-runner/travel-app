@@ -2,23 +2,21 @@
 const express = require("express");
 const router = express.Router();
 const amadeus = require("./config");
-
-const API = "http://localhost:1338";
 // City search suggestions
-router.get(`/${API}/search`, async (req, res) => {
+
+router.get(`/search`, async (req, res) => {
   const { keyword } = req.query;
-  const response = await amadeus.referenceData.locations.get({
-    keyword,
-    subType: Amadeus.location.city,
-  });
   try {
-    await res.json(JSON.parse(response.body));
+    const response = await amadeus.referenceData.locations.get({
+      keyword //i think some request is missing here
+    });
+    res.json(JSON.parse(response.body));
   } catch (err) {
-    await res.json(err);
+    res.json(err);
   }
 });
 // Querying hotels
-router.get(`/${API}/hotels`, async (req, res) => {
+router.get(`/hotels`, async (req, res) => {
     const { cityCode } = req.query;
     const response = await amadeus.shopping.hotelOffers.get({
       cityCode,
@@ -30,7 +28,7 @@ router.get(`/${API}/hotels`, async (req, res) => {
     }
 });
 // Querying hotel offers
-router.get(`/${API}/offers`, async (req, res) => {
+router.get(`/offers`, async (req, res) => {
     const { hotelId } = req.query;
     const response = await amadeus.shopping.hotelOffersByHotel.get({
       hotelId,
@@ -42,7 +40,7 @@ router.get(`/${API}/offers`, async (req, res) => {
     }
 });
 // Confirming the offer
-router.get(`/${API}/offer`, async (req, res) => {
+router.get(`/offer`, async (req, res) => {
     const { offerId } = req.query;
     const response = await amadeus.shopping.hotelOffer(offerId).get();
     try {
@@ -52,7 +50,7 @@ router.get(`/${API}/offer`, async (req, res) => {
     }
 });
 // Booking
-router.post(`/${API}/booking`, async (req, res) => {
+router.post(`/booking`, async (req, res) => {
     const { offerId } = req.query;
     const { body } = req;
     const response = await amadeus.booking.hotelBookings.post(
