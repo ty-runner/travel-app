@@ -56,7 +56,7 @@ const runCLI = async () => {
                 })),
             },
         ]);
-
+        console.log(`Selected hotel: ${selectedHotel}`);
         // Step 5: Get hotel offers for the selected hotel
         const offers = await getHotelOffers(selectedHotel);
         if (!offers || offers.length === 0) {

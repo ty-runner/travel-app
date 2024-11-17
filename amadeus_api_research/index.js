@@ -1,13 +1,26 @@
-// index.js
 const express = require("express");
+const cors = require("cors");
 const router = require("./router");
-const PORT = 1338;
+require("dotenv").config();
+
 const app = express();
-// Apply JSON parsing middleware
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
 app.use(express.json());
-// Apply router
-app.use("/", router);
-// Serving app on defined PORT
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use("/api", router);
+
+// Error handling
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+});
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Express is running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
