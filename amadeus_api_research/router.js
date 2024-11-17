@@ -35,10 +35,10 @@ router.get(`/hotels`, async (req, res) => {
 router.get(`/offers`, async (req, res) => {
   let { hotelId } = req.query;
 
-  // Handle input formats
-  if (typeof hotelId === 'string') {
-      hotelId = hotelId.split(','); // Convert comma-separated string to an array
-  }
+//   // Handle input formats
+//   if (typeof hotelId === 'string') {
+//       hotelId = hotelId.split(','); // Convert comma-separated string to an array
+//   }
 
   console.log("Hotel IDs:", hotelId); // Log the hotelId array
 
@@ -47,11 +47,9 @@ router.get(`/offers`, async (req, res) => {
       const queryParams = {
           hotelIds: hotelId
       };
-
-      console.log("Request Params:", queryParams); // Log the request parameters
-
+      console.log(amadeus.shopping.hotelOffersSearch);
       // Send the correct API request format
-      const response = await amadeus.shopping.hotelOffers.get({hotelIDs: hotelId, adults: 1});
+      const response = await amadeus.shopping.hotelOffersSearch.get({ hotelIds: hotelId, adults: 1 });
       console.log("Response:", response.body);
       
       res.json(response.body); // Send the response back as JSON
