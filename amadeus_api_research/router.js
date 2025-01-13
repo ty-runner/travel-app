@@ -44,7 +44,7 @@ router.get(`/offers`, async (req, res) => {
       };
     //   console.log(amadeus.shopping.hotelOffersSearch);
       // Send the correct API request format
-      const response = await amadeus.shopping.hotelOffersSearch.get({ hotelIds: hotelId, adults: 1 });
+      const response = await amadeus.shopping.hotelOffersSearch.get({ hotelIds: hotelId, adults: 1, checkInDate: "2024-12-01", checkOutDate: "2024-12-06" });
       console.log("Response:", response.body);
       
       res.json(response.body); // Send the response back as JSON

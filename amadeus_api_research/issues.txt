@@ -1,28 +1,5 @@
-curl "http://localhost:3000/api/offers?hotelId=HILTONPARIS1"
-=> 
-Hotel IDs: [ 'HILTONPARIS1' ]
-Request Params: { hotelIds: [ 'HILTONPARIS1' ] }
-Error: TypeError: Cannot read properties of undefined (reading 'get')
-    at C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\router.js:54:59
-    at Layer.handle [as handle_request] (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\layer.js:95:5)
-    at next (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\route.js:149:13)
-    at Route.dispatch (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\route.js:119:3)
-    at Layer.handle [as handle_request] (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\layer.js:95:5)
-    at C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\index.js:284:15
-    at Function.process_params (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\index.js:346:12)   
-    at next (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\index.js:280:10)
-    at Function.handle (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\index.js:175:3)
-    at router (C:\Users\jsrun\Documents\GitHub\travel-app\amadeus_api_research\node_modules\express\lib\router\index.js:47:12)
-
-curl "http://localhost:3000/api/offer?offerId=12345"
-=>
-{"error":"amadeus.shopping.hotelOffer is not a function"}
-
-curl -X POST "http://localhost:3000/api/booking?offerId=12345" \
--H "Content-Type: application/json" \
--d '{
-  "guests": [{ "name": "John Doe" }],
-  "payments": [{ "method": "creditCard", "card": { "number": "4111111111111111", "expiryDate": "2025-12" } }]
-}'
-=>
-\x0a}';3541db4b-4aa8-42ce-8f5e-a6f7c973dfc3{}
+BWNYC114 -> Best Western
+CINYC325 -> Comfort Inn
+DHNYCATP -> Hyatt
+HHNYC234 -> Hilton
+DZNYCDDT -> Dream
