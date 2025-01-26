@@ -12,7 +12,7 @@ function App() {
     useEffect(() => {
         // Fetch list of cities from the backend
         axios
-            .get("http://localhost:5000/cities")
+            .get("http://localhost:4000/cities")
             .then((response) => {
                 setCities(response.data);
             })
@@ -28,7 +28,7 @@ function App() {
 
         // Fetch hotel offers based on user input
         axios
-            .post("http://localhost:5000/hotel-offers", {
+            .post("http://localhost:4000/hotel-offers", {
                 cityCode: selectedCity,
                 checkInDate,
                 checkOutDate,
